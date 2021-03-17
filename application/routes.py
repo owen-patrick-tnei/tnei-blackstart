@@ -1,7 +1,16 @@
-from flask import render_template
+from flask import render_template, jsonify
 from flask import current_app as app
+from flask import redirect
 
 
 @app.route('/')
-def home():
-    return
+def index():
+    return render_template(
+        'login.html',
+        title="Index",
+        description="Index of App"
+    )
+
+@app.route('/test/')
+def test():
+    return redirect("../data/")

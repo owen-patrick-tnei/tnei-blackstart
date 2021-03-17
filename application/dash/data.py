@@ -4,6 +4,9 @@ import dash_html_components as html
 import pandas as pd
 import plotly.graph_objs as go
 from dash import Dash
+from dash.dependencies import Input, Output
+
+df = pd.read_csv('Berlin_crimes.csv')
 
 
 def init_data(server):
@@ -14,7 +17,6 @@ def init_data(server):
             '/static/dist/css/styles.css',
         ]
     )
-    df = pd.read_csv('Berlin_crimes.csv')
     colors = {
         'background': '#FFFFFF',
         'text': '#111111'
@@ -30,7 +32,7 @@ def init_data(server):
         ),
 
         dcc.Graph(
-            id='Local Crimes vs violence',
+            id='Data',
             figure={
                 'data': [
                     go.Scatter(x=df[df["District"]==i]["Local"],
@@ -46,7 +48,56 @@ def init_data(server):
                     }
                 }
             }
+        ),
+
+        html.H2(children="X-Axis"),
+
+        dcc.Dropdown(
+            id="x-axis",
+            options=[
+                ({"label": i, "value":i})for i in df.columns
+            ],
+        ),
+
+        html.H2(children="Y-Axis"),
+
+        dcc.Dropdown(
+            id="y-axis",
+            options=[
+                ({"label": i, "value": i}) for i in df.columns
+            ],
         )
 
     ])
+
+    init_callbacks(dash_app)
+
+
     return dash_app.server
+
+
+def init_callbacks(dash_app):
+    @dash_app.callback(
+    Output(component_id="Data", component_property="figure"),
+    [Input(component_id='x-axis', component_property='value')]
+    )
+    def update_data(input_value):
+        data = generate_data(df,input_value,"Threat"),
+        print(data)
+        return {"data":data}
+
+
+
+def generate_data(df,x,y):
+
+    data = [go.Scatter(x=df[df["District"] == i][x],
+               y=df[df["District"] == i]["Threat"],
+               mode="markers")
+    for i in df.District.unique()]
+
+    return data
+
+
+
+
+
