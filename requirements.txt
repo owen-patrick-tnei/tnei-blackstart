@@ -6,3 +6,4 @@ dash_html_components
 plotly
 flask_login
 flask_sqlalchemy
+flask-wtf

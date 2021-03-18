@@ -1,2 +1,2 @@
 SECRET_KEY = 'PLACEOLDER'
-SQLALCHEMY_DATABASE_URI = 'sqlite:///db.sqlite'
+SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"

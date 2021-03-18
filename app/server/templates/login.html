@@ -5,19 +5,29 @@
     <title>Login</title>
 </head>
 <body>
+
+<form method="POST" action="/">
+{{ form.hidden_tag() }}
 <h1>Login Screen</h1>
+
 <input class="input" type="text" name="email" placeholder="User" autofocus="">
+
 <input class="input" type="password" name="password" placeholder="Password" autofocus="">
 
 <br>
 <h3>Session</h3>
-<select class="input" name="session" id="session">
-    <option value="placeholder1">placeholder1</option>
-    <option value="placeholder2">placeholder2</option>
-    <option value="placeholder3">placeholder3</option>
+<!--<select class="input" name="session" id="session">-->
+<!--    <option value="placeholder1">placeholder1</option>-->
+<!--    <option value="placeholder2">placeholder2</option>-->
+<!--    <option value="placeholder3">placeholder3</option>-->
 
-</select>
+<!--</select>-->
 
+    <button>
+        Login
+    </button>
+</form>
 
+<h5>password = "password", email = "test"</h5>
 </body>
 </html>

@@ -7,18 +7,21 @@ import pandas as pd
 import plotly.graph_objs as go
 from dash import Dash
 from dash.dependencies import Input, Output
+from flask_login import current_user, login_required
+from flask import redirect
 
 ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
 df = pd.read_csv(ROOT_DIR+'/data/Berlin_crimes.csv')
 
 
 def init_data(server):
+
     dash_app = Dash(
         server=server,
         routes_pathname_prefix='/data/',
-        external_stylesheets=[
-            '/static/dist/css/styles.css',
-        ]
+        # external_stylesheets=[
+        #     '/static/dist/css/styles.css',
+        # ]
     )
     colors = {
         'background': '#FFFFFF',
@@ -74,8 +77,6 @@ def init_data(server):
     ])
 
     init_callbacks(dash_app)
-
-
     return dash_app.server
 
 
@@ -86,18 +87,22 @@ def init_callbacks(dash_app):
     )
     def update_data(input_value):
         data = generate_data(df,input_value,"Threat"),
-        print(data)
         return {"data":data}
+
+
+@dash.callback_context
+
 
 
 
 def generate_data(df,x,y):
-
-    data = [go.Scatter(x=df[df["District"] == i][x],
-               y=df[df["District"] == i]["Threat"],
-               mode="markers")
-    for i in df.District.unique()]
-
+    try:
+        data = [go.Scatter(x=df[df["District"] == i][x],
+                   y=df[df["District"] == i]["Threat"],
+                   mode="markers")
+        for i in df.District.unique()]
+    except:
+        data=[go.Scatter(x=[1,2,3],y=[1,2,3])]
     return data
 
 
