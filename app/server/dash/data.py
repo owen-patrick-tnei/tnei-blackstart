@@ -11,14 +11,14 @@ from flask_login import current_user, login_required
 from flask import redirect
 
 ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
-df = pd.read_csv(ROOT_DIR+'/data/Berlin_crimes.csv')
+df = pd.read_csv(ROOT_DIR+'/app/data/Berlin_crimes.csv')
 
 
 def init_data(server):
 
     dash_app = Dash(
         server=server,
-        routes_pathname_prefix='/data/',
+        routes_pathname_prefix='/dash/data/',
         # external_stylesheets=[
         #     '/static/dist/css/styles.css',
         # ]
@@ -90,7 +90,6 @@ def init_callbacks(dash_app):
         return {"data":data}
 
 
-@dash.callback_context
 
 
 

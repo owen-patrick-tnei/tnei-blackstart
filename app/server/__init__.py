@@ -1,3 +1,4 @@
+from dash import Dash
 from flask import Flask
 from flask_login import LoginManager, login_required
 from flask_sqlalchemy import SQLAlchemy
@@ -9,10 +10,9 @@ from app.server.models.User import User
 from app.server.blueprints.login.login import login
 
 def init_app():
-    app = Flask(__name__)
+    app = Flask(__name__, instance_relative_config=False)
     login_manager.init_app(app)
     db.init_app(app)
-
 
     app.config.from_pyfile('config.py')
     app.register_blueprint(login,url_prefix='/')

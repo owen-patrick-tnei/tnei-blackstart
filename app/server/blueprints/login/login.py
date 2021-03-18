@@ -27,7 +27,7 @@ def loginPage():
         flask.flash('Logged in successfully.')
         print("logged in successfully")
         next = flask.request.args.get('next')
-        return flask.redirect(next or flask.url_for('/data/'))
+        return flask.redirect(next or flask.url_for('/dash/data/'))
     else:
         print("form did not validate")
     return flask.render_template('login.html',form=form)
