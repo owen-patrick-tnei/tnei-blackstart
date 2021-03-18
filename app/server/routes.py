@@ -3,7 +3,7 @@ from flask import current_app as app
 from flask import redirect
 
 
-@app.route('/home')
+@app.route('/')
 def index():
     return render_template(
         'index.html',

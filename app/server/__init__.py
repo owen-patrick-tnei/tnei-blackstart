@@ -8,13 +8,19 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 
 def init_app():
+
     app = Flask(__name__)
+
+    # login_manager.init_app(app)
+
     app.config.from_pyfile('config.py')
     app.register_blueprint(login,url_prefix='/login')
 
+
+
     with app.app_context():
-        # from .dash.login import init_login
-        # app = init_login(app)
+        from . import routes
+
         from app.server.dash.data import init_data
         app = init_data(app)
 
