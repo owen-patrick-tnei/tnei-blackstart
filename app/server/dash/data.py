@@ -1,3 +1,5 @@
+import os
+
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -6,7 +8,8 @@ import plotly.graph_objs as go
 from dash import Dash
 from dash.dependencies import Input, Output
 
-df = pd.read_csv('Berlin_crimes.csv')
+ROOT_DIR = os.path.dirname(os.path.abspath("__file__"))
+df = pd.read_csv(ROOT_DIR+'/data/Berlin_crimes.csv')
 
 
 def init_data(server):

@@ -3,10 +3,10 @@ from flask import current_app as app
 from flask import redirect
 
 
-@app.route('/')
+@app.route('/home')
 def index():
     return render_template(
-        'login.html',
+        'index.html',
         title="Index",
         description="Index of App"
     )
